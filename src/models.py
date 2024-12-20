@@ -16,8 +16,8 @@ class Users(Base):
     last_name = Column(String(50), nullable=False)
 
     #Relationships. When there is more than one foreign key, we implement foreign_keys to control how the relationship is resolved
-    followers = relationship('Followers', foreign_keys='Follower.user_to_id', back_populates='followed')
-    following = relationship('Followers', foreign_keys='Follower.user_from_id', back_populates='follower')
+    followers = relationship('Followers', foreign_keys='Followers.user_to_id', back_populates='followed')
+    following = relationship('Followers', foreign_keys='Followers.user_from_id', back_populates='follower')
     posts = relationship('Posts', back_populates='users')
     comments = relationship('Comments', back_populates='users')
     likes = relationship('Likes', back_populates='users')
@@ -39,7 +39,7 @@ class Comments (Base):
     id = Column(Integer, primary_key=True)  
     comment_text =Column(Text, nullable=False)
     author_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    post_id = Column(Integer, ForeignKey('post.id'), nullable=False)
+    post_id = Column(Integer, ForeignKey('posts.id'), nullable=False)
 
     #relationship
     user = relationship('Users', back_populates='comments')
